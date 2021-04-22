@@ -12,7 +12,8 @@ class Application < Sinatra::Base
 
     {
       status: 'ok',
-      code: 200
+      code: 200,
+      destination: DESTINATION
     }.to_json
   end
 
