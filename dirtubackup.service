@@ -1,0 +1,12 @@
+[Unit]
+Description=Dirty Backup
+After=network.target
+StartLimitIntervalSec=0[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=<user>
+ExecStart=/usr/bin/env <script to start>
+
+[Install]
+WantedBy=multi-user.target
