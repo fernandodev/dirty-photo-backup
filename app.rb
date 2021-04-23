@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
-require 'JSON'
+require 'json'
 require 'time'
 
 class Application < Sinatra::Base

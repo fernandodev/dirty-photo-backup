@@ -1,12 +1,12 @@
-[Unit]
-Description=Dirty Backup
-After=network.target
-StartLimitIntervalSec=0[Service]
+[Service]
 Type=simple
+User=<username>
+WorkingDirectory=<project dir>
+Environment=PHOTO_BACKUP_DESTINATION_FOLDER=<photos folder>
+
+ExecStart=<bundle dir>bundle exec puma <project dir>/config.ru -C <project dir>/puma.rb
 Restart=always
-RestartSec=1
-User=<user>
-ExecStart=/usr/bin/env <script to start>
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target

@@ -1,17 +1,20 @@
 #!/usr/bin/env puma
 # frozen_string_literal: true
 
+puma_dir = '<project dir>'
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum, this matches the default thread size of Active Record.
 #
+
 threads_count = ENV.fetch('PUMA_THREADS') { 5 }.to_i
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
-port ENV.fetch('PORT') { 9494 }
+# port ENV.fetch('PORT') { 9494 }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -19,7 +22,14 @@ port ENV.fetch('PORT') { 9494 }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-workers ENV.fetch('WORKERS') { 1 }.to_i
+workers ENV.fetch('WORKERS') { 2 }.to_i
+
+ssl_bind '0.0.0.0', '9494', { key: "#{puma_dir}/ssl/puma-selfsigned.key", cert: "#{puma_dir}/ssl/puma-selfsigned.crt" }
+
+
+pidfile "#{puma_dir}/puma.pid"
+state_path "#{puma_dir}/puma.state"
+stdout_redirect "#{puma_dir}/log/stdout", "#{puma_dir}/log/stderr", true
 
 # Load metrics plugin
 plugin 'metrics'
